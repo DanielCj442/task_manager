@@ -1,18 +1,26 @@
-//TODO: Dio + Node.JS
+import 'package:dio/dio.dart';
+
 class AuthRemoteDataSource {
+  final Dio dio = Dio(
+    BaseOptions(baseUrl: 'http://localhost:3000'),
+  );
+
   Future<Map<String, dynamic>> login(
     String email,
     String password,
   ) async {
-    await Future.delayed(const Duration(seconds: 1));
-
-    if (email == 'test@test.com' && password == '123456') {
-      return {
-        'id': '1',
+    final response = await dio.post(
+      '/auth/login',
+      data: {
         'email': email,
-      };
-    } else {
-      throw Exception('Invalid credentials');
-    }
+        'password': password,
+      },
+    );
+
+    return {
+      'id': response.data['user']['id'],
+      'email': response.data['user']['email'],
+      'token': response.data['token'],
+    };
   }
 }
