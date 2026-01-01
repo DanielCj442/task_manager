@@ -16,6 +16,8 @@ class AuthRepositoryImpl implements AuthRepository {
     final user = UserModel.fromJson(json);
 
     await local.saveUser(user.id, user.email);
+    await local.saveToken(json['token']);
+
     return user;
   }
 
@@ -31,4 +33,3 @@ class AuthRepositoryImpl implements AuthRepository {
     await local.clear();
   }
 }
-

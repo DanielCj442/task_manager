@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 
 class AuthRemoteDataSource {
-  final Dio dio = Dio(
-    BaseOptions(baseUrl: 'http://localhost:3000'),
-  );
+  final Dio dio;
+
+  AuthRemoteDataSource(this.dio);
 
   Future<Map<String, dynamic>> login(
     String email,

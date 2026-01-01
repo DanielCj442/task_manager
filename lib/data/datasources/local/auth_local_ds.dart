@@ -5,7 +5,6 @@ class AuthLocalDataSource {
   static const _emailKey = 'user_email';
   static const _tokenKey = 'auth_token';
 
-
   Future<void> saveUser(String id, String email) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_userIdKey, id);
@@ -27,10 +26,16 @@ class AuthLocalDataSource {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_userIdKey);
     await prefs.remove(_emailKey);
+    await prefs.remove(_tokenKey);
   }
-  
+
   Future<void> saveToken(String token) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_tokenKey, token);
+  }
+
+  Future<String?> getToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(_tokenKey);
   }
 }
